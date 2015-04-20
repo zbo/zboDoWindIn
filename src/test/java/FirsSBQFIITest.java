@@ -93,7 +93,6 @@ public class FirsSBQFIITest {
             StringBuilder line = RecoredLine(tr);
             Log_SBQFII(line, windin);
         }
-
     }
 
     private StringBuilder RecoredLine(WebElement tr) throws IOException {
@@ -126,7 +125,9 @@ public class FirsSBQFIITest {
         LogName(windin, file);
         LogLine(line, file);
         SaveLastQ(type);
-        SaveImage(windin.getImage(), file);
+        //SaveWindInImage(windin.getImage(), file);
+        SaveSinaDayImage(windin, file);
+        SaveSinaWeekImage(windin, file);
     }
 
     private void SaveLastQ(OwnerType type) throws IOException {
@@ -161,9 +162,16 @@ public class FirsSBQFIITest {
         FileUtils.writeStringToFile(file, String.format("<a href=%s>基本面</a><br>\n", windin.getBaseInfo()), Charset.defaultCharset(), true);
     }
 
-    private void SaveImage(String img, File file) throws IOException {
+    private void SaveWindInImage(String img, File file) throws IOException {
         FileUtils.writeStringToFile(file, String.format("<img src=%s>\n", img), Charset.defaultCharset(), true);
         FileUtils.writeStringToFile(file, String.format("<img src=%s><br>\n", img.replace("/d/", "/w/")), Charset.defaultCharset(), true);
+    }
+
+    private void SaveSinaDayImage(Windin windin, File file) throws IOException {
+        FileUtils.writeStringToFile(file, String.format("<img src=%s>\n", windin.getSinaDayImg()), Charset.defaultCharset(), true);
+    }
+    private void SaveSinaWeekImage(Windin windin, File file) throws IOException {
+        FileUtils.writeStringToFile(file, String.format("<img src=%s><br>\n", windin.getSinaWeekImg()), Charset.defaultCharset(), true);
     }
 
     private boolean IsSB(StringBuilder line) {
@@ -173,5 +181,4 @@ public class FirsSBQFIITest {
     private boolean IsQfii(StringBuilder line) {
         return line.toString().toUpperCase().contains("QFII");
     }
-
 }
