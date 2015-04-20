@@ -5,8 +5,8 @@ class Windin {
     String source_base="http://www.windin.com/home/stock/stock-mh/%s.%s.shtml";
     String image_base="http://chart.windin.com/HQchart/kline/10000000/d/%s.%s.jpg";
     String basic_base="http://www.windin.com/home/stock/html/%s.%s.shtml";
-    String sina_day_img_base="http://image2.sinajs.cn/newchart/macd/n/%s%s.gif";
-    String sina_week_img_base="http://image2.sinajs.cn/newchart/macd/n/%s%s.gif";
+    String sina_day_img_base="http://image2.sinajs.cn/newchart/daily/n/%s%s.gif";
+    String sina_week_img_base="http://image2.sinajs.cn/newchart/weekly/n/%s%s.gif";
 
     public Windin(String code, String market,String name) {
         this.code=code;
