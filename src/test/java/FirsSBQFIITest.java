@@ -1,6 +1,7 @@
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,6 +14,7 @@ import java.util.List;
 public class FirsSBQFIITest {
     WebDriver webDriver;
     File file, inputfile, filesb, fileqfii, fileboth;
+    int linenum=0;
     public enum OwnerType{
         SB,QFII
     }
@@ -84,14 +86,20 @@ public class FirsSBQFIITest {
     }
 
     private void getOne(Windin windin) throws IOException {
+        linenum++;
+        System.out.println(linenum+" "+windin.code+" "+windin.name);
         String source = windin.getSource();
         webDriver.get(source);
         LogName(windin, file);
+        try{
         WebElement div = webDriver.findElement(By.id("MainHolder_Sumary1"));
         List<WebElement> trs = div.findElements(By.tagName("tr"));
         for (WebElement tr : trs) {
             StringBuilder line = RecoredLine(tr);
             Log_SBQFII(line, windin);
+        }}
+        catch(NoSuchElementException e){
+            System.out.println("error one"+source);
         }
     }
 
