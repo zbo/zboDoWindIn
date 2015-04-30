@@ -1,3 +1,5 @@
+package WindInTests;
+
 /**
 * Created by twer on 15-4-20.
 */

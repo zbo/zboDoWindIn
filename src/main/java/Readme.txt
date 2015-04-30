@@ -1,0 +1,1 @@
+stock name info mainly form sina dot com @ http://finance.sina.com.cn/data/#stock

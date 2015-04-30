@@ -1,3 +1,5 @@
+package WindInTests;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.openqa.selenium.By;
@@ -14,10 +16,12 @@ import java.util.List;
 public class FirsSBQFIITest {
     WebDriver webDriver;
     File file, inputfile, filesb, fileqfii, fileboth;
-    int linenum=0;
-    public enum OwnerType{
-        SB,QFII
+    int linenum = 0;
+
+    public enum OwnerType {
+        SB, QFII
     }
+
     @Before
     public void setup() {
         webDriver = new FirefoxDriver();
@@ -66,7 +70,7 @@ public class FirsSBQFIITest {
     }
 
     @Test
-    //@Ignore
+    @Ignore
     public void should_get_windin_for_stock() {
         try {
             List<String> lines = FileUtils.readLines(inputfile);
@@ -87,20 +91,25 @@ public class FirsSBQFIITest {
 
     private void getOne(Windin windin) throws IOException {
         linenum++;
-        System.out.println(linenum+" "+windin.code+" "+windin.name);
+        System.out.println(linenum + " " + windin.code + " " + windin.name);
         String source = windin.getSource();
         webDriver.get(source);
         LogName(windin, file);
-        try{
-        WebElement div = webDriver.findElement(By.id("MainHolder_Sumary1"));
-        List<WebElement> trs = div.findElements(By.tagName("tr"));
-        for (WebElement tr : trs) {
-            StringBuilder line = RecoredLine(tr);
-            Log_SBQFII(line, windin);
-        }}
-        catch(NoSuchElementException e){
-            System.out.println("error one"+source);
+        try {
+            WebElement div = webDriver.findElement(By.id("MainHolder_Sumary1"));
+            List<WebElement> trs = div.findElements(By.tagName("tr"));
+            for (WebElement tr : trs) {
+                StringBuilder line = RecoredLine(tr);
+                Log_SBQFII(line, windin, getDate());
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("error one" + source);
         }
+    }
+
+    private String getDate() {
+        WebElement span = webDriver.findElement(By.xpath("//*[@id=\"MainHolder1\"]/table[1]/tbody/tr[1]/td/span"));
+        return span.getAttribute("innerHTML");
     }
 
     private StringBuilder RecoredLine(WebElement tr) throws IOException {
@@ -118,7 +127,7 @@ public class FirsSBQFIITest {
         return line;
     }
 
-    private void Log_SBQFII(StringBuilder line, Windin windin) throws IOException {
+    private void Log_SBQFII(StringBuilder line, Windin windin, String date) throws IOException {
         File file;
         OwnerType type;
         if (IsSB(line)) {
@@ -131,6 +140,7 @@ public class FirsSBQFIITest {
             return;
         }
         LogName(windin, file);
+        LogLine(new StringBuilder(date), file);
         LogLine(line, file);
         SaveLastQ(type);
         //SaveWindInImage(windin.getImage(), file);
@@ -144,14 +154,14 @@ public class FirsSBQFIITest {
         WebElement div2 = webDriver.findElement(By.id("MainHolder_Sumary2"));
         List<WebElement> trs = div2.findElements(By.tagName("tr"));
 
-        if (type==OwnerType.SB) {
+        if (type == OwnerType.SB) {
             for (WebElement tr : trs) {
                 StringBuilder line = getStringLine(tr);
                 if (IsSB(line)) {
                     LogLine(line, filesb);
                 }
             }
-        } else if (type==OwnerType.QFII) {
+        } else if (type == OwnerType.QFII) {
             for (WebElement tr : trs) {
                 StringBuilder line = getStringLine(tr);
                 if (IsQfii(line)) {
@@ -178,6 +188,7 @@ public class FirsSBQFIITest {
     private void SaveSinaDayImage(Windin windin, File file) throws IOException {
         FileUtils.writeStringToFile(file, String.format("<img src=%s>\n", windin.getSinaDayImg()), Charset.defaultCharset(), true);
     }
+
     private void SaveSinaWeekImage(Windin windin, File file) throws IOException {
         FileUtils.writeStringToFile(file, String.format("<img src=%s><br>\n", windin.getSinaWeekImg()), Charset.defaultCharset(), true);
     }
