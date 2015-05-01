@@ -3,6 +3,7 @@ package stock;
 import cmd.CmdLineParser;
 import cmd.UsageGenerator;
 import cmd.exception.CmdLineException;
+import com.google.inject.Guice;
 import org.apache.log4j.Logger;
 
 import java.io.PrintStream;
@@ -17,7 +18,7 @@ public class Main {
     }
 
     public int process(String[] args, PrintStream printStream, final String persistenceUnit) {
-        MainCmd cmd = new MainCmd();
+        MainCmd cmd = Guice.createInjector().getInstance(MainCmd.class);
         CmdLineParser parser = new CmdLineParser(cmd);
 
         try {
@@ -26,7 +27,7 @@ public class Main {
             if (cmd.isHelp() || cmd.getSubCmd() == null) {
                 usage(cmd.getClass(), printStream);
             } else {
-                cmd.getSubCmd().execute(printStream);
+                Guice.createInjector().getInstance(cmd.getSubCmd().getClass()).execute(printStream);
             }
             return 0;
         } catch (CmdLineException e) {
