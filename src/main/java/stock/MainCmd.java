@@ -10,7 +10,7 @@ import cmd.annotation.Usage;
 public class MainCmd {
     @SubCommands(usage = "the available sub commands listed below", metaVar = "<sub command>",
             commands = {
-                    @SubCommand(name = "ListSinaName", impl = XueQiuNameCmd.class, usage = "List all stock names and codes form sina"),
+                    @SubCommand(name = "ListName", impl = XueQiuNameCmd.class, usage = "List all stock names and codes form sina"),
                     @SubCommand(name = "GrabEastMoney", impl = EastmoneyDataCmd.class, usage = "Grab needed info from east money web site")
             })
     private SubCmd subCmd;
