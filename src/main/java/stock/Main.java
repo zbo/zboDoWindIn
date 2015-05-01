@@ -27,7 +27,7 @@ public class Main {
             if (cmd.isHelp() || cmd.getSubCmd() == null) {
                 usage(cmd.getClass(), printStream);
             } else {
-                Guice.createInjector().getInstance(cmd.getSubCmd().getClass()).execute(printStream);
+                cmd.getSubCmd().execute(printStream);
             }
             return 0;
         } catch (CmdLineException e) {

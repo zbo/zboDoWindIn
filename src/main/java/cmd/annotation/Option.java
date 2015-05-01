@@ -84,7 +84,6 @@ public @interface Option {
      * For more advanced use, this property is set to a key of a
      * {@link java.util.ResourceBundle}. The actual message is obtained
      * by querying a {@link java.util.ResourceBundle} instance supplied to
-     * {@link org.iata.signac.tool.cmd.CmdLineParser} by this key. This allows the usage
      * screen to be properly localized.
      *
      * <p>
@@ -105,7 +104,6 @@ public @interface Option {
      *
      * <p>
      * Just like {@link #usage()}, normally, this value is printed as is.
-     * But if a {@link java.util.ResourceBundle} is given to the {@link org.iata.signac.tool.cmd.CmdLineParser},
      * it will be used to obtain the locale-specific value.
      */
     String metaVar() default "";
@@ -114,8 +112,6 @@ public @interface Option {
      * Specify that the option is mandatory.
      *
      * <p>
-     * At the end of {@link org.iata.signac.tool.cmd.CmdLineParser#parse(String...)},
-     * a {@link org.iata.signac.tool.cmd.exception.CmdLineException} will be thrown if a required option
      * is not present.
      *
      * <p>

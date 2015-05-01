@@ -1,6 +1,8 @@
 package stock.name;
 
 import com.google.gson.Gson;
+import com.google.inject.Binder;
+import com.google.inject.Module;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,37 +10,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import stock.meta.Stock;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XueQiuNameExtractor {
-    private static String URL_SHA = "http://xueqiu.com/hq#exchange=CN&plate=1_1_1&firstName=1&secondName=1_1&type=sha&order=asc&orderby=symbol&page=%s";
-    private static String URL_SZA = "http://xueqiu.com/hq#exchange=CN&plate=1_1_1&firstName=1&secondName=1_1&type=sza&order=asc&orderby=symbol&page=%s";
-    private static String URL_ZXB = "http://xueqiu.com/hq#exchange=CN&plate=1_1_1&firstName=1&secondName=1_1&type=zxb&order=asc&orderby=symbol&page=%s";
-    private static String URL_CYB = "http://xueqiu.com/hq#exchange=CN&plate=1_1_1&firstName=1&secondName=1_1&type=cyb&order=asc&orderby=symbol&page=%s";
-    private static String output = "/Users/twer/project/zboDoWindIn/src/app-resources/all-stock.json";
-    private File file = new File(output);
-    private static Integer TOTAL_SHA_PAGES = 32;
-    private static Integer TOTAL_SZA_PAGES = 48;
-    private static Integer TOTAL_ZXB_PAGES = 22;
-    private static Integer TOTAL_CYB_PAGES = 13;
+public class XueQiuNameExtractor implements Module {
+
+    AbstractMarket market;
 
     private WebDriver WebDriver;
 
-    public List<Stock> extract() {
+    public List<Stock> extract(String classname) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException {
+        market=(AbstractMarket)(Class.forName(classname).newInstance());
+        FileUtils.deleteQuietly(market.getFile());
         List<Stock> result = new ArrayList<>();
-        extractSingleType(result,TOTAL_SHA_PAGES,URL_SHA);
-        extractSingleType(result,TOTAL_SZA_PAGES,URL_SZA);
-        extractSingleType(result,TOTAL_ZXB_PAGES,URL_ZXB);
-        extractSingleType(result,TOTAL_CYB_PAGES,URL_CYB);
+        extractSingleType(result,market.getTotal(),market.getURL());
         return result;
     }
 
     private void extractSingleType(List<Stock> result,int total,String url) {
         try {
-            FileUtils.forceDelete(file);
             WebDriver = new FirefoxDriver();
             int currentPage = 1;
             while (currentPage <= total) {
@@ -79,9 +70,14 @@ public class XueQiuNameExtractor {
                 stock.setRange52(range52);
                 String json = gson.toJson(stock);
                 System.out.println(json);
-                FileUtils.write(file, json + "\n", "UTF-8", true);
+                FileUtils.write(market.getFile(), json + "\n", "UTF-8", true);
                 result.add(stock);
         }
         return result;
+    }
+
+    @Override
+    public void configure(Binder binder) {
+
     }
 }

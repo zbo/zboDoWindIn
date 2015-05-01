@@ -8,6 +8,7 @@ import cmd.exception.CmdLineException;
 import cmd.option.Args;
 import cmd.option.OptionHandlers;
 import cmd.option.OptionType;
+import com.google.inject.Guice;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -103,13 +104,9 @@ public class CmdLineParser {
                     //subcommand argument
                     for (SubCommand subCommand : subCommands.commands()) {
                         if (subCommand.name().equalsIgnoreCase(arg)) {
-                            try {
-                                Object subCmdObj = subCommand.impl().newInstance();
-                                setFieldValue(cmdObject, field, subCmdObj);
-                                parseObj(subCmdObj, args);
-                            } catch (InstantiationException | IllegalAccessException e) {
-                                throw new CmdLineException(e.getMessage(), e);
-                            }
+                            Object subCmdObj = Guice.createInjector().getInstance(subCommand.impl());
+                            setFieldValue(cmdObject, field, subCmdObj);
+                            parseObj(subCmdObj, args);
                             return;
                         }
                     }
