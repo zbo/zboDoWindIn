@@ -2,21 +2,18 @@ package stock;
 
 import com.google.inject.Inject;
 import stock.meta.Stock;
-import stock.name.SinaNameExtractor;
+import stock.name.XueQiuNameExtractor;
 
 import java.io.PrintStream;
 import java.util.List;
 
-/**
- * Created by twer on 15-4-30.
- */
-public class SinaNameLister  extends SubCmd{
+public class XueQiuNameCmd extends SubCmd{
     @Inject
-    private SinaNameExtractor extractor;
+    private XueQiuNameExtractor extractor;
 
     @Override
     public void execute(PrintStream out) {
-        System.out.println("run SinaName Lister");
+        System.out.println("run Xue Qiu Lister");
         List<Stock> allstocks=extractor.extract();
     }
 }
