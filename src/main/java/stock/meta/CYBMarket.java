@@ -1,4 +1,4 @@
-package stock.name;
+package stock.meta;
 
 import java.io.File;
 

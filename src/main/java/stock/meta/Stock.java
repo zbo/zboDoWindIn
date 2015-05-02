@@ -11,6 +11,7 @@ public class Stock {
     private String volumn;
     private String range52;
     private float price;
+    private int lastupdate;
 
     public String getName() {
         return name;
@@ -58,5 +59,13 @@ public class Stock {
 
     public void setRange52(String range52) {
         this.range52 = range52;
+    }
+
+    public int getLastupdate() {
+        return lastupdate;
+    }
+
+    public void setLastupdate(int lastupdate) {
+        this.lastupdate = lastupdate;
     }
 }

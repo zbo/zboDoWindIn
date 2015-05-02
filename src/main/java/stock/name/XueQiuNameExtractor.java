@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import stock.meta.AbstractMarket;
 import stock.meta.Stock;
 
 import java.io.IOException;
@@ -60,8 +61,8 @@ public class XueQiuNameExtractor implements Module {
         } while (trs.size() == 0);
         for (WebElement tr : trs) {
                 List<WebElement> tds = tr.findElements(By.tagName("td"));
-                String name = tds.get(0).findElement(By.tagName("a")).getAttribute("innerHTML");
-                String code = tds.get(1).findElement(By.tagName("a")).getAttribute("innerHTML");
+                String name = tds.get(1).findElement(By.tagName("a")).getAttribute("innerHTML");
+                String code = tds.get(0).findElement(By.tagName("a")).getAttribute("innerHTML");
                 String volumn = tds.get(7).findElement(By.tagName("span")).getAttribute("innerHTML");
                 String pe = tds.get(8).getAttribute("innerHTML");
                 String range52 = tds.get(6).getAttribute("innerHTML");
