@@ -21,6 +21,8 @@ public class WindInDataGraber {
     private org.openqa.selenium.WebDriver WebDriver;
     @Inject
     Gson gson;
+    @Inject
+    WindInDataRecorder recorder;
 
     private Hashtable<String,Stock> history=new Hashtable<>();
     WebDriver webDriver;
@@ -36,10 +38,21 @@ public class WindInDataGraber {
                 System.out.println(stock.getName()+" already processed. so skip.");
             }
             else{
-                System.out.println(stock.getName());
+                if(matchFromWeb(stock)){
+                    List<String> recordLines = generateRecord(stock);
+                    this.recorder.record(recordLines);
+                }
             }
         }
         webDriver.close();
+    }
+
+    private List<String> generateRecord(Stock stock) {
+        return null;
+    }
+
+    private boolean matchFromWeb(Stock stock) {
+        return false;
     }
 
     private void buildHistoryHash() throws IOException {
