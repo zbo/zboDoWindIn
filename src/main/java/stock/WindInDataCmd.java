@@ -2,23 +2,25 @@ package stock;
 
 import cmd.annotation.Option;
 import com.google.inject.Inject;
-import stock.meta.Stock;
-import stock.name.XueQiuNameExtractor;
+import stock.data.WindInDataGraber;
 
+import java.io.IOException;
 import java.io.PrintStream;
-import java.util.List;
 
-public class XueQiuNameCmd extends SubCmd{
+/**
+ * Created by twer on 15-4-30.
+ */
+public class WindInDataCmd extends SubCmd{
     @Option(name = "-m", aliases = "--market-type", usage = "market class name", metaVar = "<market type>", required = true)
     private String market;
-    @Inject
-    private XueQiuNameExtractor cmd;
 
+    @Inject
+    private WindInDataGraber cmd;
     @Override
     public void execute(PrintStream out) {
-        System.out.println("run Xue Qiu Lister");
+        System.out.println("run WindIn");
         try {
-            List<Stock> allstocks= cmd.extract(market);
+            cmd.grab(market);
         } catch (Exception e) {
             e.printStackTrace();
         }

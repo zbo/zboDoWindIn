@@ -2,6 +2,7 @@ package stock.name;
 
 import com.google.gson.Gson;
 import com.google.inject.Binder;
+import com.google.inject.Inject;
 import com.google.inject.Module;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XueQiuNameExtractor implements Module {
+
+    @Inject
+    Gson gson;
 
     AbstractMarket market;
 
@@ -45,7 +49,6 @@ public class XueQiuNameExtractor implements Module {
     private List<Stock> extractSinglePage(String url) throws IOException {
         List<Stock> result = new ArrayList<>();
         WebDriver.get(url);
-        Gson gson = new Gson();
         List<WebElement> trs = new ArrayList<>();
         do {
             try {

@@ -11,7 +11,7 @@ public class MainCmd {
     @SubCommands(usage = "the available sub commands listed below", metaVar = "<sub command>",
             commands = {
                     @SubCommand(name = "ListName", impl = XueQiuNameCmd.class, usage = "List all stock names and codes form sina"),
-                    @SubCommand(name = "GrabEastMoney", impl = EastmoneyDataCmd.class, usage = "Grab needed info from east money web site")
+                    @SubCommand(name = "GrabData", impl = WindInDataCmd.class, usage = "Grab needed info from web site")
             })
     private SubCmd subCmd;
 
