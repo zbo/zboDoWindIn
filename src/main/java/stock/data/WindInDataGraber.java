@@ -10,6 +10,7 @@ import stock.meta.Stock;
 import stock.meta.WindIn;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -38,21 +39,31 @@ public class WindInDataGraber {
                 System.out.println(stock.getName()+" already processed. so skip.");
             }
             else{
-                if(matchFromWeb(stock)){
-                    List<String> recordLines = generateRecord(stock);
-                    this.recorder.record(recordLines);
+                List<String> thisQuarterLines= matchThisQuarterFromWeb(stock);
+                if(thisQuarterLines.size()>0){
+                    this.recorder.record(thisQuarterLines);
+                    List<String> lastQuarterLines = matchLastQuarterFromWeb(stock);
+                    this.recorder.record(lastQuarterLines);
+                    List<String> sinaImages=generateSinaImages(stock);
+                    this.recorder.record(sinaImages);
                 }
             }
         }
         webDriver.close();
     }
 
-    private List<String> generateRecord(Stock stock) {
+    private List<String> generateSinaImages(Stock stock) {
         return null;
     }
 
-    private boolean matchFromWeb(Stock stock) {
-        return false;
+    private List<String> matchLastQuarterFromWeb(Stock stock) {
+        return null;
+    }
+
+    private List<String> matchThisQuarterFromWeb(Stock stock) throws IOException {
+        FileUtils.writeStringToFile(WindIn.getLogfile(), gson.toJson(stock)+"\n","UTF-8",true);
+        return new ArrayList<String>();
+
     }
 
     private void buildHistoryHash() throws IOException {

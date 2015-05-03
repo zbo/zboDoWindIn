@@ -6,8 +6,6 @@ import java.io.File;
  * Created by twer on 15-5-1.
  */
 public class CYBMarket extends AbstractMarket {
-    public String URL = "http://xueqiu.com/hq#exchange=CN&plate=1_1_1&firstName=1&secondName=1_1&type=cyb&order=asc&orderby=symbol&page=%s";
-    public String OUTPUT = "/Users/twer/project/zboDoWindIn/src/app-resources/cyb-stock.json";
     public Integer TOTAL = 13;
 
     @Override
@@ -23,5 +21,20 @@ public class CYBMarket extends AbstractMarket {
     @Override
     public File getFile() {
         return new File(OUTPUT);
+    }
+
+    @Override
+    public File getHTMLSB() {
+        return new File(HTMLOUTSB);
+    }
+
+    @Override
+    public File getHTMLQFII() {
+        return new File(HTMLOUTQFII);
+    }
+
+    @Override
+    public String getName() {
+        return "cyb";
     }
 }

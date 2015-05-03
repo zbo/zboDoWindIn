@@ -1,7 +1,5 @@
 package stock.meta;
-enum Market{
-    SH,SZ
-}
+
 public class Stock {
     private Market market;
     private String name;
