@@ -21,7 +21,7 @@ public abstract class AbstractMarket {
     public String HTMLOUTSB = WorkingBase+ getName() +"-sb.html";
     public String HTMLOUTQFII = WorkingBase+ getName() +"-qfii.html";
 
-    public String GetUrlBase(String market){
+    private String GetUrlBase(String market){
         return "http://xueqiu.com/hq#exchange=CN&plate=1_1_1&firstName=1&secondName=1_1&type="+
                 market+
                 "&order=asc&orderby=symbol&page=%s";
