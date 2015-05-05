@@ -1,5 +1,7 @@
 package stock.meta;
 
+import com.google.common.base.Strings;
+
 public class MatchedStock {
     private String qfiiThisQ;
     private String sbThisQ;
@@ -81,6 +83,10 @@ public class MatchedStock {
 
     public void setImageDay(String imageDay) {
         this.imageDay = imageDay;
+    }
+
+    public boolean thisQmatched() {
+        return (!Strings.isNullOrEmpty(this.getQfiiThisQ()))||(!Strings.isNullOrEmpty(this.getSbThisQ()));
     }
 
     enum MatchType {SB, QFII, BOTH}

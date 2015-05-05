@@ -1,12 +1,12 @@
 package stock.data;
 
-import java.util.List;
+import stock.meta.MatchedStock;
 
 /**
  * Created by twer on 15-5-2.
  */
 public class WindInDataRecorder {
-    public void record(List<String> recordLines) {
+    public void record(MatchedStock matchedStockck) {
 
     }
 }
