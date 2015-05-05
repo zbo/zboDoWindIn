@@ -1,4 +1,4 @@
-package stock.meta;
+package market.xueqiu;
 
 import java.io.File;
 

@@ -1,13 +1,12 @@
-package stock.meta;
+package market.xueqiu;
 
 import java.io.File;
 
 /**
  * Created by twer on 15-5-1.
  */
-public class CYBMarket extends AbstractMarket {
-    public Integer TOTAL = 13;
-
+public class ZXBMarket extends AbstractMarket {
+    public Integer TOTAL = 22;
     @Override
     public Integer getTotal() {
         return TOTAL;
@@ -35,6 +34,6 @@ public class CYBMarket extends AbstractMarket {
 
     @Override
     public String getName() {
-        return "cyb";
+        return "zxb";
     }
 }

@@ -8,7 +8,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import stock.meta.AbstractMarket;
+import market.xueqiu.AbstractMarket;
 import stock.meta.Stock;
 import stock.meta.WindIn;
 
