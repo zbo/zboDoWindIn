@@ -1,5 +1,7 @@
 package stock.meta;
 
+import com.google.common.base.Strings;
+
 public class Stock {
     private Market market;
     private String name;
@@ -65,5 +67,13 @@ public class Stock {
 
     public void setLastupdate(int lastupdate) {
         this.lastupdate = lastupdate;
+    }
+
+    public String getMarketCode() {
+        return Strings.isNullOrEmpty(this.getCode()) ? "" : this.getCode().substring(2);
+    }
+
+    public String getMarketShortName() {
+        return Strings.isNullOrEmpty(this.getCode()) ? "" : this.getCode().substring(0, 2);
     }
 }

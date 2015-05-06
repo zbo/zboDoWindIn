@@ -86,7 +86,10 @@ public class MatchedStock {
     }
 
     public boolean thisQmatched() {
-        return (!Strings.isNullOrEmpty(this.getQfiiThisQ()))||(!Strings.isNullOrEmpty(this.getSbThisQ()));
+        if(Strings.isNullOrEmpty(this.getQfiiThisQ()) && Strings.isNullOrEmpty(this.getSbThisQ())){
+            return false;
+        }
+        return true;
     }
 
     enum MatchType {SB, QFII, BOTH}

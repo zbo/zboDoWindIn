@@ -35,12 +35,14 @@ public class WindInDataGraber {
     private Hashtable<String, Stock> history = new Hashtable<>();
     private String contentFormat="%s - %s";
 
-    public void grab(String classname) throws ClassNotFoundException, IllegalAccessException, InstantiationException, IOException {
+    public void grab(String classname) {
+        try{
         market = (AbstractMarket) (Class.forName(classname).newInstance());
         webDriver = new FirefoxDriver();
         List<String> lines = FileUtils.readLines(market.getFile());
         buildHistoryHash();
         for (String line : lines) {
+            try{
             Stock stock = gson.fromJson(line, Stock.class);
             if (alreadyUpdated(stock)) {
                 System.out.println(stock.getName() + " already processed. so skip.");
@@ -52,13 +54,21 @@ public class WindInDataGraber {
                     generateSinaImages(stock, matchedStock);
                     this.recorder.record(matchedStock);
                 }
+            }}
+            catch(NoSuchElementException e){
+                System.out.println("can not find page skip one");
             }
         }
-        webDriver.close();
+        webDriver.close();}
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void generateSinaImages(Stock stock, MatchedStock matchedStock) {
-
+        matchedStock.setImageDay(WindIn.getSina_day_img(stock.getCode()));
+        matchedStock.setImageWeek(WindIn.getSina_week_img(stock.getCode()));
     }
 
     private void matchLastQuarterFromWeb(Stock stock, MatchedStock matchedStock) {
@@ -66,7 +76,7 @@ public class WindInDataGraber {
             WebElement link2 = webDriver.findElement(By.id("report2"));
             link2.click();
             WebElement div2 = webDriver.findElement(By.id("MainHolder_Sumary2"));
-            String date = getDate();
+            String date = getDateLastQ();
             List<WebElement> trs = div2.findElements(By.tagName("tr"));
             for (WebElement tr : trs) {
                 String content = getStringLine(tr).toString();
@@ -83,7 +93,7 @@ public class WindInDataGraber {
     }
 
     private void matchThisQuarterFromWeb(Stock stock, MatchedStock matchedStock) throws IOException {
-        webDriver.get(format(WindIn.getSource_base(), stock.getCode().substring(2), stock.getCode().substring(0, 2)));
+        webDriver.get(format(WindIn.getSource_base(), stock.getMarketCode(), stock.getMarketShortName()));
         String date = getDate();
         try {
             WebElement div = webDriver.findElement(By.id("MainHolder_Sumary1"));
@@ -108,6 +118,11 @@ public class WindInDataGraber {
         return span.getAttribute("innerHTML");
     }
 
+    private String getDateLastQ(){
+        WebElement span = webDriver.findElement(By.xpath("//*[@id=\"MainHolder2\"]/table[1]/tbody/tr[1]/td/span"));
+        return span.getAttribute("innerHTML");
+    }
+
     private StringBuilder getStringLine(WebElement tr) {
         StringBuilder line = new StringBuilder();
         for (WebElement td : tr.findElements(By.tagName("td"))) {
@@ -120,6 +135,7 @@ public class WindInDataGraber {
     private void buildHistoryHash() throws IOException {
         List<String> lines = FileUtils.readLines(WindIn.getLogfile());
         for (String line : lines) {
+            if(line.trim().isEmpty()) continue;
             Stock stock = gson.fromJson(line, Stock.class);
             history.put(stock.getCode(), stock);
         }
