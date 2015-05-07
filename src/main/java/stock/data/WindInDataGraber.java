@@ -34,6 +34,7 @@ public class WindInDataGraber {
     private Finance finance;
     private Hashtable<String, Stock> history = new Hashtable<>();
     private String contentFormat="%s - %s";
+    private String thisMonth="03";
 
     public void grab(String classname) {
         try{
@@ -95,6 +96,10 @@ public class WindInDataGraber {
     private void matchThisQuarterFromWeb(Stock stock, MatchedStock matchedStock) throws IOException {
         webDriver.get(format(WindIn.getSource_base(), stock.getMarketCode(), stock.getMarketShortName()));
         String date = getDate();
+        String month=date.split("-")[1];
+        if(!month.trim().equals(thisMonth)){
+            return;
+        }
         try {
             WebElement div = webDriver.findElement(By.id("MainHolder_Sumary1"));
             List<WebElement> trs = div.findElements(By.tagName("tr"));
