@@ -5,7 +5,7 @@ import cmd.annotation.Option;
 import java.io.PrintStream;
 
 /**
- * Created by twer on 15-4-30.
+ * Created by bob.zhu on 15-4-30.
  */
 public class EastmoneyDataCmd extends SubCmd{
     @Option(name = "-m", aliases = "--market-type", usage = "market class name", metaVar = "<market type>", required = true)

@@ -3,7 +3,7 @@ package XueQiuTests;
 import org.junit.Test;
 
 /**
- * Created by twer on 15-5-1.
+ * Created by bob.zhu on 15-5-1.
  */
 public class CommonTests {
     @Test

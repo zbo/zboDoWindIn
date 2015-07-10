@@ -20,7 +20,7 @@ import java.util.List;
 import static java.lang.String.format;
 
 /**
- * Created by twer on 15-5-2.
+ * Created by bob.zhu on 15-5-2.
  */
 public class WindInDataGraber {
     AbstractMarket market;
@@ -34,7 +34,7 @@ public class WindInDataGraber {
     private Finance finance;
     private Hashtable<String, Stock> history = new Hashtable<>();
     private String contentFormat="%s - %s";
-    private String thisMonth="03";
+    private String thisMonth="06";
 
     public void grab(String classname) {
         try{

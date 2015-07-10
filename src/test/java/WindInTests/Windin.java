@@ -1,7 +1,7 @@
 package WindInTests;
 
 /**
-* Created by twer on 15-4-20.
+* Created by bob.zhu on 15-4-20.
 */
 class Windin {
     String source_base="http://www.windin.com/home/stock/stock-mh/%s.%s.shtml";

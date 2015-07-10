@@ -3,7 +3,7 @@ package market.xueqiu;
 import java.io.File;
 
 /**
- * Created by twer on 15-5-1.
+ * Created by bob.zhu on 15-5-1.
  */
 public class SHAMarket extends AbstractMarket {
     public Integer TOTAL = 32;

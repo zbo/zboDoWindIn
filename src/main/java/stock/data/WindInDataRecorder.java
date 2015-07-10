@@ -10,7 +10,7 @@ import java.io.IOException;
 import static java.lang.String.format;
 
 /**
- * Created by twer on 15-5-2.
+ * Created by bob.zhu on 15-5-2.
  */
 public class WindInDataRecorder {
     File file;
