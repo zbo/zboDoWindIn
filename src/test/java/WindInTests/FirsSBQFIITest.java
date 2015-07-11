@@ -25,11 +25,11 @@ public class FirsSBQFIITest {
     @Before
     public void setup() {
         webDriver = new FirefoxDriver();
-        file = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/logout.txt");
-        inputfile = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/input.txt");
-        filesb = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/sb.html");
-        fileqfii = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/qfii.html");
-        fileboth = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/botd.html");
+        file = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/WindInTests/logout.txt");
+        inputfile = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/WindInTests/input.txt");
+        filesb = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/WindInTests/sb.html");
+        fileqfii = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/WindInTests/qfii.html");
+        fileboth = new File("/Users/bob.zhu/project/zboDoWindIn/src/test/java/WindInTests/botd.html");
         FileUtils.deleteQuietly(file);
         FileUtils.deleteQuietly(filesb);
         FileUtils.deleteQuietly(fileqfii);
@@ -70,7 +70,7 @@ public class FirsSBQFIITest {
     }
 
     @Test
-    @Ignore
+    //@Ignore
     public void should_get_windin_for_stock() {
         try {
             List<String> lines = FileUtils.readLines(inputfile);
